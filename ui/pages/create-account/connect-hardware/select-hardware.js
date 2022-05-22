@@ -82,7 +82,7 @@ export default class SelectHardware extends Component {
         })}
         onClick={(_) => this.setState({ selectedDevice: DEVICE_NAMES.PROKEY })}
       >
-        <LogoTrezor className="hw-connect__btn__img" ariaLabel="Prokey" />
+        <LogoProkey className="hw-connect__btn__img" ariaLabel="Prokey" />
       </button>
     );
   }
