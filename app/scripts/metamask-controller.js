@@ -18,6 +18,7 @@ import { Mutex } from 'await-semaphore';
 import { stripHexPrefix } from 'ethereumjs-util';
 import log from 'loglevel';
 import TrezorKeyring from 'eth-trezor-keyring';
+import ProkeyKeyring from 'test-eth-prokey-keyring';
 import LedgerBridgeKeyring from '@metamask/eth-ledger-bridge-keyring';
 import LatticeKeyring from 'eth-lattice-keyring';
 import { MetaMaskKeyring as QRHardwareKeyring } from '@keystonehq/metamask-airgapped-keyring';
@@ -243,33 +244,33 @@ export default class MetamaskController extends EventEmitter {
     });
     process.env.TOKEN_DETECTION_V2
       ? (this.assetsContractController = new AssetsContractController({
+        onPreferencesStateChange: (listener) =>
+          this.preferencesController.store.subscribe(listener),
+        onNetworkStateChange: (cb) =>
+          this.networkController.store.subscribe((networkState) => {
+            const modifiedNetworkState = {
+              ...networkState,
+              provider: {
+                ...networkState.provider,
+                chainId: hexToDecimal(networkState.provider.chainId),
+              },
+            };
+            return cb(modifiedNetworkState);
+          }),
+        config: {
+          provider: this.provider,
+        },
+        state: initState.AssetsContractController,
+      }))
+      : (this.assetsContractController = new AssetsContractController(
+        {
           onPreferencesStateChange: (listener) =>
             this.preferencesController.store.subscribe(listener),
-          onNetworkStateChange: (cb) =>
-            this.networkController.store.subscribe((networkState) => {
-              const modifiedNetworkState = {
-                ...networkState,
-                provider: {
-                  ...networkState.provider,
-                  chainId: hexToDecimal(networkState.provider.chainId),
-                },
-              };
-              return cb(modifiedNetworkState);
-            }),
-          config: {
-            provider: this.provider,
-          },
-          state: initState.AssetsContractController,
-        }))
-      : (this.assetsContractController = new AssetsContractController(
-          {
-            onPreferencesStateChange: (listener) =>
-              this.preferencesController.store.subscribe(listener),
-          },
-          {
-            provider: this.provider,
-          },
-        ));
+        },
+        {
+          provider: this.provider,
+        },
+      ));
 
     this.collectiblesController = new CollectiblesController(
       {
@@ -415,48 +416,48 @@ export default class MetamaskController extends EventEmitter {
     });
     process.env.TOKEN_DETECTION_V2
       ? (this.tokenListController = new TokenListController({
-          chainId: hexToDecimal(this.networkController.getCurrentChainId()),
-          onNetworkStateChange: (cb) =>
-            this.networkController.store.subscribe((networkState) => {
-              const modifiedNetworkState = {
-                ...networkState,
-                provider: {
-                  ...networkState.provider,
-                  chainId: hexToDecimal(networkState.provider.chainId),
-                },
-              };
-              return cb(modifiedNetworkState);
-            }),
-          messenger: tokenListMessenger,
-          state: initState.TokenListController,
-        }))
+        chainId: hexToDecimal(this.networkController.getCurrentChainId()),
+        onNetworkStateChange: (cb) =>
+          this.networkController.store.subscribe((networkState) => {
+            const modifiedNetworkState = {
+              ...networkState,
+              provider: {
+                ...networkState.provider,
+                chainId: hexToDecimal(networkState.provider.chainId),
+              },
+            };
+            return cb(modifiedNetworkState);
+          }),
+        messenger: tokenListMessenger,
+        state: initState.TokenListController,
+      }))
       : (this.tokenListController = new TokenListController({
-          chainId: hexToDecimal(this.networkController.getCurrentChainId()),
-          useStaticTokenList: !this.preferencesController.store.getState()
-            .useTokenDetection,
-          onNetworkStateChange: (cb) =>
-            this.networkController.store.subscribe((networkState) => {
-              const modifiedNetworkState = {
-                ...networkState,
-                provider: {
-                  ...networkState.provider,
-                  chainId: hexToDecimal(networkState.provider.chainId),
-                },
-              };
-              return cb(modifiedNetworkState);
-            }),
-          onPreferencesStateChange: (cb) =>
-            this.preferencesController.store.subscribe((preferencesState) => {
-              const modifiedPreferencesState = {
-                ...preferencesState,
-                useStaticTokenList: !this.preferencesController.store.getState()
-                  .useTokenDetection,
-              };
-              return cb(modifiedPreferencesState);
-            }),
-          messenger: tokenListMessenger,
-          state: initState.TokenListController,
-        }));
+        chainId: hexToDecimal(this.networkController.getCurrentChainId()),
+        useStaticTokenList: !this.preferencesController.store.getState()
+          .useTokenDetection,
+        onNetworkStateChange: (cb) =>
+          this.networkController.store.subscribe((networkState) => {
+            const modifiedNetworkState = {
+              ...networkState,
+              provider: {
+                ...networkState.provider,
+                chainId: hexToDecimal(networkState.provider.chainId),
+              },
+            };
+            return cb(modifiedNetworkState);
+          }),
+        onPreferencesStateChange: (cb) =>
+          this.preferencesController.store.subscribe((preferencesState) => {
+            const modifiedPreferencesState = {
+              ...preferencesState,
+              useStaticTokenList: !this.preferencesController.store.getState()
+                .useTokenDetection,
+            };
+            return cb(modifiedPreferencesState);
+          }),
+        messenger: tokenListMessenger,
+        state: initState.TokenListController,
+      }));
 
     this.phishingController = new PhishingController();
 
@@ -554,6 +555,7 @@ export default class MetamaskController extends EventEmitter {
     const additionalKeyrings = [
       TrezorKeyring,
       LedgerBridgeKeyring,
+      ProkeyKeyring,
       LatticeKeyring,
       QRHardwareKeyring,
     ];
@@ -706,23 +708,23 @@ export default class MetamaskController extends EventEmitter {
 
     process.env.TOKEN_DETECTION_V2
       ? (this.detectTokensController = new DetectTokensController({
-          preferences: this.preferencesController,
-          tokensController: this.tokensController,
-          assetsContractController: this.assetsContractController,
-          network: this.networkController,
-          keyringMemStore: this.keyringController.memStore,
-          tokenList: this.tokenListController,
-          trackMetaMetricsEvent: this.metaMetricsController.trackEvent.bind(
-            this.metaMetricsController,
-          ),
-        }))
+        preferences: this.preferencesController,
+        tokensController: this.tokensController,
+        assetsContractController: this.assetsContractController,
+        network: this.networkController,
+        keyringMemStore: this.keyringController.memStore,
+        tokenList: this.tokenListController,
+        trackMetaMetricsEvent: this.metaMetricsController.trackEvent.bind(
+          this.metaMetricsController,
+        ),
+      }))
       : (this.detectTokensController = new DetectTokensController({
-          preferences: this.preferencesController,
-          tokensController: this.tokensController,
-          network: this.networkController,
-          keyringMemStore: this.keyringController.memStore,
-          tokenList: this.tokenListController,
-        }));
+        preferences: this.preferencesController,
+        tokensController: this.tokensController,
+        network: this.networkController,
+        keyringMemStore: this.keyringController.memStore,
+        tokenList: this.tokenListController,
+      }));
 
     this.addressBookController = new AddressBookController(
       undefined,
@@ -1156,10 +1158,10 @@ export default class MetamaskController extends EventEmitter {
           params:
             newAccounts.length < 2
               ? // If the length is 1 or 0, the accounts are sorted by definition.
-                newAccounts
+              newAccounts
               : // If the length is 2 or greater, we have to execute
-                // `eth_accounts` vi this method.
-                await this.getPermittedAccounts(origin),
+              // `eth_accounts` vi this method.
+              await this.getPermittedAccounts(origin),
         });
       }
 
@@ -1900,8 +1902,8 @@ export default class MetamaskController extends EventEmitter {
       // DetectCollectibleController
       detectCollectibles: process.env.COLLECTIBLES_V1
         ? collectibleDetectionController.detectCollectibles.bind(
-            collectibleDetectionController,
-          )
+          collectibleDetectionController,
+        )
         : null,
 
       /** Token Detection V2 */
@@ -1916,8 +1918,8 @@ export default class MetamaskController extends EventEmitter {
         : null,
       getBalancesInSingleCall: process.env.TOKEN_DETECTION_V2
         ? assetsContractController.getBalancesInSingleCall.bind(
-            assetsContractController,
-          )
+          assetsContractController,
+        )
         : null,
     };
   }
@@ -2274,6 +2276,9 @@ export default class MetamaskController extends EventEmitter {
       case DEVICE_NAMES.LEDGER:
         keyringName = LedgerBridgeKeyring.type;
         break;
+      case DEVICE_NAMES.PROKEY:
+        keyringName = ProkeyKeyring.type;
+        break
       case DEVICE_NAMES.QR:
         keyringName = QRHardwareKeyring.type;
         break;
@@ -2389,6 +2394,7 @@ export default class MetamaskController extends EventEmitter {
       case KEYRING_TYPES.LATTICE:
       case KEYRING_TYPES.QR:
       case KEYRING_TYPES.LEDGER:
+      case KEYRING_TYPES.PROKEY:
         return 'hardware';
       case KEYRING_TYPES.IMPORTED:
         return 'imported';
@@ -2430,9 +2436,8 @@ export default class MetamaskController extends EventEmitter {
    */
 
   getAccountLabel(name, index, hdPathDescription) {
-    return `${name[0].toUpperCase()}${name.slice(1)} ${
-      parseInt(index, 10) + 1
-    } ${hdPathDescription || ''}`.trim();
+    return `${name[0].toUpperCase()}${name.slice(1)} ${parseInt(index, 10) + 1
+      } ${hdPathDescription || ''}`.trim();
   }
 
   /**

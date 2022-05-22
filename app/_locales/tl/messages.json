@@ -3017,6 +3017,13 @@
     "message": "Mag-download, mag-set up, at maglagay ng password para ma-unlock ang $1.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "I-plug sa Prokey wallet"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Direktang ikonekta ang iyong wallet sa iyong computer. Para sa higit pa sa paggamit ng iyong hardware wallet device, $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "I-plug sa Trezor wallet"
   },

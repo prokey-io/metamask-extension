@@ -3017,6 +3017,13 @@
     "message": "Descargue y configure la aplicación, e ingrese su contraseña para desbloquear $1.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Conectar la cartera Prokey"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Conecte la cartera directamente al equipo. Para más información sobre el uso de su dispositivo de cartera de hardware, $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Conectar la cartera Trezor"
   },

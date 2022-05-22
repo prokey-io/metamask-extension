@@ -2574,6 +2574,13 @@
     "message": "Baixe, configure e insira sua senha para desbloquear $1.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Conecte a carteira Prokey"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Conecte sua carteira diretamente ao seu computador. Para obter mais informações sobre como usar seu dispositivo de carteira de hardware, $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Conecte a carteira Trezor"
   },

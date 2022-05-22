@@ -3079,6 +3079,13 @@
     "message": "Download, set up, and enter your password to unlock $1.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Plug in Prokey wallet"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Connect your wallet directly to your computer. For more on using your hardware wallet device, $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Plug in Trezor wallet"
   },

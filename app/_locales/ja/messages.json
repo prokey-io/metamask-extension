@@ -3017,6 +3017,13 @@
     "message": "$1のロックを解除するには、ダウンロードして設定し、パスワードを入力してください。",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Prokeyウォレットのプラグイン"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "コンピューターにウォレットを直接接続します。ハードウェアウォレットデバイスの使い方の詳細については、$1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Trezorウォレットのプラグイン"
   },

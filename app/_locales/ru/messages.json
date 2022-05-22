@@ -3017,6 +3017,13 @@
     "message": "Скачайте $1, настройте его и введите пароль для его разблокировки.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Подключить кошелек Prokey"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Подключите кошелек напрямую к компьютеру. Для получения дополнительной информации об использовании аппаратного кошелька $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Подключить кошелек Trezor"
   },

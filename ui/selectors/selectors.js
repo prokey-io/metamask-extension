@@ -225,6 +225,7 @@ export function getAccountType(state) {
   switch (type) {
     case KEYRING_TYPES.TREZOR:
     case KEYRING_TYPES.LEDGER:
+    case KEYRING_TYPES.PROKEY:
     case KEYRING_TYPES.LATTICE:
       return 'hardware';
     case 'Simple Key Pair':
@@ -409,11 +410,10 @@ export function getAccountsWithLabels(state) {
   return getMetaMaskAccountsOrdered(state).map(
     ({ address, name, balance }) => ({
       address,
-      addressLabel: `${
-        name.length < TRUNCATED_NAME_CHAR_LIMIT
+      addressLabel: `${name.length < TRUNCATED_NAME_CHAR_LIMIT
           ? name
           : `${name.slice(0, TRUNCATED_NAME_CHAR_LIMIT - 1)}...`
-      } (${shortenAddress(address)})`,
+        } (${shortenAddress(address)})`,
       label: name,
       balance,
     }),

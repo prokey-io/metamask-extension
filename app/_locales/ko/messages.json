@@ -3017,6 +3017,13 @@
     "message": "$1의 잠금을 해제하려면 다운로드, 설정 및 비밀번호를 입력하세요.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Prokey 지갑 연결"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "지갑을 컴퓨터에 바로 연결합니다. 하드웨어 지갑 장치를 사용하는 방법에 관한 자세한 내용은 $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Trezor 지갑 연결"
   },

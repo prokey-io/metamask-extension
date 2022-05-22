@@ -6,6 +6,7 @@ import LogoLedger from '../../../components/ui/logo/logo-ledger';
 import LogoQRBased from '../../../components/ui/logo/logo-qr-based';
 import LogoTrezor from '../../../components/ui/logo/logo-trezor';
 import LogoLattice from '../../../components/ui/logo/logo-lattice';
+import LogoProkey from '../../../components/ui/logo/logo-prokey';
 
 import {
   DEVICE_NAMES,
@@ -73,6 +74,19 @@ export default class SelectHardware extends Component {
     );
   }
 
+  renderConnectToProkeyButton() {
+    return (
+      <button
+        className={classnames('hw-connect__btn', {
+          selected: this.state.selectedDevice === DEVICE_NAMES.PROKEY,
+        })}
+        onClick={(_) => this.setState({ selectedDevice: DEVICE_NAMES.PROKEY })}
+      >
+        <LogoTrezor className="hw-connect__btn__img" ariaLabel="Prokey" />
+      </button>
+    );
+  }
+
   renderConnectToQRButton() {
     return (
       <button
@@ -99,6 +113,12 @@ export default class SelectHardware extends Component {
         >
           {this.renderConnectToLatticeButton()}
           {this.renderConnectToQRButton()}
+        </div>
+        <div
+          className="hw-connect__btn-wrapper"
+          style={{ margin: '10px 0 0 0' }}
+        >
+          {this.renderConnectToProkeyButton()}
         </div>
       </>
     );
@@ -163,6 +183,8 @@ export default class SelectHardware extends Component {
         return this.renderLedgerTutorialSteps();
       case DEVICE_NAMES.TREZOR:
         return this.renderTrezorTutorialSteps();
+      case DEVICE_NAMES.PROKEY:
+        return this.renderProkeyTutorialSteps();
       case DEVICE_NAMES.LATTICE:
         return this.renderLatticeTutorialSteps();
       case DEVICE_NAMES.QR:
@@ -307,6 +329,47 @@ export default class SelectHardware extends Component {
       </div>
     );
   }
+
+  renderProkeyTutorialSteps() {
+    const steps = [
+      {
+        asset: 'plug-in-wallet',
+        dimensions: { width: '225px', height: '75px' },
+        title: this.context.t('step1ProkeyWallet'),
+        message: this.context.t('step1ProkeyWalletMsg', [
+          <a
+            className="hw-connect__msg-link"
+            href="https://metamask.zendesk.com/hc/en-us/articles/360020394612-How-to-connect-a-Trezor-or-Ledger-Hardware-Wallet"
+            rel="noopener noreferrer"
+            target="_blank"
+            key="trezor-support-link"
+          >
+            {this.context.t('hardwareWalletSupportLinkConversion')}
+          </a>,
+        ]),
+      },
+    ];
+
+    return (
+      <div className="hw-tutorial">
+        {steps.map((step, index) => (
+          <div className="hw-connect" key={index}>
+            <h3 className="hw-connect__title">{step.title}</h3>
+            <p className="hw-connect__msg">{step.message}</p>
+            {step.asset && (
+              <img
+                className="hw-connect__step-asset"
+                src={`images/${step.asset}.svg`}
+                {...step.dimensions}
+                alt=""
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
 
   renderQRHardwareWalletSteps() {
     const steps = [];

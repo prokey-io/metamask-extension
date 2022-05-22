@@ -2538,6 +2538,13 @@
     "message": "下载、设置和输入您的密码以解锁 $1。",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "插入Prokey钱包"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "将您的钱包直接连接到电脑。如果使用硬件钱包设备，關於使用您的钱包更多詳情，$1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "插入Trezor钱包"
   },

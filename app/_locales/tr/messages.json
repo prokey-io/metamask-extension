@@ -3017,6 +3017,13 @@
     "message": "$1 kilidini açmak için indirin, kurun ve parolanızı girin.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Prokey cüzdanınızı bağlayın"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Cüzdanınızı doğrudan bilgisayara bağlayın. Donanım cüzdanı cihazını kullanma hakkında daha fazla bilgi için $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Trezor cüzdanınızı bağlayın"
   },

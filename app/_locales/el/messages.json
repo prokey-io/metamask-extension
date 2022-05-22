@@ -3017,6 +3017,13 @@
     "message": "Κατεβάστε, ρυθμίστε και εισάγετε τον κωδικό πρόσβασής σας για να ξεκλειδώσετε το $1.",
     "description": "$1 represents the `ledgerLiveApp` localization value"
   },
+  "step1ProkeyWallet": {
+    "message": "Συνδέστε το πορτοφόλι Prokey"
+  },
+  "step1ProkeyWalletMsg": {
+    "message": "Συνδέστε το πορτοφόλι σας απευθείας στον υπολογιστή σας. Για περισσότερα σχετικά με τη χρήση της συσκευής πορτοφολιού σας, $1",
+    "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
+  },
   "step1TrezorWallet": {
     "message": "Συνδέστε το πορτοφόλι Trezor"
   },
