@@ -219,7 +219,7 @@
     "ses": "^0.12.4",
     "single-call-balance-checker-abi": "^1.0.0",
     "swappable-obj-proxy": "^1.1.0",
-    "test-eth-prokey-keyring": "1.1.2",
+    "test-eth-prokey-keyring": "1.1.3",
     "textarea-caret": "^3.0.1",
     "unicode-confusables": "^0.1.1",
     "uuid": "^8.3.2",
